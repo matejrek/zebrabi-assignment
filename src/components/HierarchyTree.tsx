@@ -57,7 +57,7 @@ const HierarchyTree = () => {
             {
                 nodes.map((node: NodeItem) => {
                     return (
-                        <div className="tree-node-column">
+                        <div className="tree-node-column" key={"column-" + node.id}>
                             <TreeNode
                                 key={node.id}
                                 node={node}
