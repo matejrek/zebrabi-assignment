@@ -12,6 +12,27 @@
   border-radius: 4px;
   box-shadow: 0 0 7px 3px rgba(0, 0, 0, 0.1);
   padding: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.collapse-section {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background: #fff;
+  color: #000;
+  font-size: 22px;
+  border: none;
+  padding: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.collapse-section:hover {
+  background: #ddd;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .node {
@@ -101,4 +122,8 @@
 
 .skip {
   text-decoration: line-through;
+}
+
+.collapsed .child-node {
+  display: none;
 }

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { NodeItem } from "../data/data"
 
 interface TreeNodeProps {
@@ -10,10 +11,16 @@ interface TreeNodeProps {
 
 const TreeNode: React.FC<TreeNodeProps> = ({ node, onSkipNode, onInvertNode, onToggleNodeControls, openNodeId }) => {
     const isOpen = node.id === openNodeId;
+    const [isCollapsed, setIsCollapsed] = useState(false);
+
+    const handleToggleCollapseSection = () => {
+        setIsCollapsed(prevIsCollapsed => !prevIsCollapsed);
+    }
 
     return (
         <>
-            <div className={`node ${node.depth === 1 ? 'base-node' : 'child-node'} ${node.skip ? 'skip' : ''}`}>
+            {node.depth === 1 ? <button onClick={handleToggleCollapseSection} className="collapse-section material-symbols-outlined">{isCollapsed ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</button> : ''}
+            <div className={`node ${node.depth === 1 ? 'base-node' : 'child-node'} ${node.skip ? 'skip' : ''} ${isCollapsed ? 'collapsed' : ''}`}>
                 <div className="node-head">
                     <span className="name">{node.name}</span> <span className="value">{node.sumValue ? node.sumValue : node.value}</span>
                 </div>
