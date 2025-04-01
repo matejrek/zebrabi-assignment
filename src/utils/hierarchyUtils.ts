@@ -11,35 +11,22 @@ export function computeHierarchyValues(data: NodeItem[]): NodeItem[] {
         const nodeData = node.data;
         nodeData.depth = node.depth;
 
-        if (node.children && node.children.length > 0) {
-            const childrenValues = node.children.map((child) => {
-                if (child.data.skip) return 0;
+        if (nodeData.skip) {
+            nodeData.sumValue = 0;
+        } else {
+            if (node.children?.length) {
 
-                if (child.data.value) {
-                    if (child.data.inverted) {
-                        node
-                        return -child.data.value;
-                    }
-                }
-                return child.data.value ?? 0
-            });
-
-            const sum = Number(childrenValues.reduce((a, b) => a + b, 0).toFixed(1));
-            nodeData.sumValue = sum;
-        }
-        else {
-            if (nodeData.skip) return 0;
-            if (nodeData.value) {
-                if (nodeData.inverted) {
-                    nodeData.sumValue = -nodeData.value;
-                    return -nodeData.value;
-                }
-                else {
-                    nodeData.sumValue = nodeData.value;
-                    return nodeData.value;
-                }
+                nodeData.sumValue = node.children.reduce((sum, child) => sum + (child.data.sumValue ?? 0), 0);
+            } else {
+                nodeData.sumValue = nodeData.value ?? 0;
             }
         }
+
+        if (nodeData.inverted) {
+            nodeData.sumValue = -nodeData.sumValue;
+        }
+
+        nodeData.sumValue = Number(nodeData.sumValue.toFixed(1));
     });
 
     return root.data.children ?? [];
