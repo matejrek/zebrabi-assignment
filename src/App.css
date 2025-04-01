@@ -5,48 +5,100 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-/*Hierarchy tree*/
-.node {
-  border: 1px solid white;
+.tree-node-column {
+  width: 100%;
+  max-width: 250px;
+  margin: 10px auto;
+  border-radius: 4px;
+  box-shadow: 0 0 7px 3px rgba(0, 0, 0, 0.1);
   padding: 10px;
+}
+
+.node {
+  padding: 0;
   text-align: left;
+  width: 100%;
+}
+
+.node-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex: 1;
+}
+
+.node-head .name {
+  padding: 5px 15px 5px 5px;
+  flex: 1;
+}
+
+.node-head .value {
+  padding: 5px 5px 5px 15px;
+  text-align: right;
+  flex: 1;
+}
+
+.base-node>.node-head .name,
+.base-node>.node-head .value {
+  border-bottom: 2px solid #000;
+  font-weight: bold;
+}
+
+.child-node>.node-head .name,
+.child-node>.node-head .value {
+  border-bottom: 1px solid #ccc;
+}
+
+.base-node>.node-head {
+  padding-right: 35px;
+}
+
+.child-node {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.node-tools {
+  position: relative;
+  margin: 2px 0;
+}
+
+.node-tools button {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  padding: 0;
+  text-align: center;
+  border: none;
+  background: #ccc;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.node-tools button:hover {
+  cursor: pointer;
+  background: #ddd;
+  transition: all 0.2s ease-in-out;
+}
+
+.node-controls {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  min-width: 130px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.skip {
+  text-decoration: line-through;
 }

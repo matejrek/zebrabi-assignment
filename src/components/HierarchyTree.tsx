@@ -6,6 +6,11 @@ import { computeHierarchyValues } from '../utils/hierarchyUtils';
 const HierarchyTree = () => {
     const hierarchyData = computeHierarchyValues(data);
     const [nodes, setNodes] = useState<NodeItem[]>(hierarchyData);
+    const [openNodeId, setOpenNodeId] = useState<string | null>(null);
+
+    const handleToggleNodeControls = (nodeId: string) => {
+        setOpenNodeId(prevNodeId => (prevNodeId === nodeId ? null : nodeId));
+    };
 
     const findNodeById = (id: string, nodes: NodeItem[]): NodeItem | null => {
         for (let node of nodes) {
@@ -48,11 +53,20 @@ const HierarchyTree = () => {
 
     return (
         <div>
-            <h1>Hierarchy Tree</h1>
+            <h2>Hierarchy Tree</h2>
             {
                 nodes.map((node: NodeItem) => {
                     return (
-                        <TreeNode key={node.id} node={node} onSkipNode={handleToggleSkipNodeValue} onInvertNode={handleToggleInvertNodeValue} />
+                        <div className="tree-node-column">
+                            <TreeNode
+                                key={node.id}
+                                node={node}
+                                onSkipNode={handleToggleSkipNodeValue}
+                                onInvertNode={handleToggleInvertNodeValue}
+                                onToggleNodeControls={handleToggleNodeControls}
+                                openNodeId={openNodeId}
+                            />
+                        </div>
                     )
                 })
             }
